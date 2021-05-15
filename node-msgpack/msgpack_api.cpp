@@ -8,23 +8,6 @@
 #include <any>
 #include "msgpack.hpp"
 #include <chrono>
-#include "VisualProfiler.h"
-struct AllocationMetrics {
-    uint32_t TotalAllocated = 0;
-    uint32_t TotalFreed = 0;
-    uint32_t CurrentUsage() { return TotalAllocated - TotalFreed; }
-};
-
-static AllocationMetrics s_AllocationMetrics;
-//void* operator new(size_t size) {
-//    s_AllocationMetrics.TotalAllocated += size;
-//    return malloc(size);
-//}
-//
-//void operator delete(void* memory, size_t size) {
-//    s_AllocationMetrics.TotalFreed += size;
-//    free(memory);
-//}
 
 namespace node_msgpack {
 
@@ -48,42 +31,12 @@ namespace node_msgpack {
         return env.Global().Get("Number").ToObject().Get("isInteger").As<Function>().Call({ num }).ToBoolean().Value();
     }
 
-    napi_valuetype find_type(Env& env, Value& val) {
-        PROFILE_FUNCTION();
-        return val.Type();
-        //if (val.IsBoolean()) {
-        //    return js_types::boolean;
-        //}
-        //else if (val.IsNumber()) {
-        //    if (val.ToNumber().Int64Value() % 1 == 0) {
-        //        return js_types::integer;
-        //    }
-        //    return js_types::number;
-        //}
-        //else if (val.IsString()) {
-        //    return js_types::str;
-        //}
-        //else if (val.IsUndefined() || val.IsNull()) {
-        //    return js_types::undefined_null;
-        //}
-        //else if (val.IsArray()) {
-        //    return js_types::array;
-        //}
-        //else if (val.IsObject()) {
-        //    return js_types::object;
-        //}
-        //else {
-        //    // TODO: error throwing
-        //}
-    }
-
     void pack(Env& env, vector<Value>& src, msgpack_byte::container& dest, bool initial = true);
 
     void unpack(Env& env, vector<Value>& dest, msgpack_byte::container& src, uint64_t pos);
 
     void pack(Env& env, Value& src, msgpack_byte::container& dest, bool initial = false) {
         PROFILE_FUNCTION();
-         // type = find_type(env, src);
         switch (src.Type()) {
             case napi_boolean: {
                 msgpack::pack(src.ToBoolean().Value(), dest);
