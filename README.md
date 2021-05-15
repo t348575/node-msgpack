@@ -9,10 +9,9 @@ A native addon for nodejs as a wrapper around [msgpack](https://github.com/t3485
 
 ```js
 const msgpack = require('./lib/binding');
-const fs = require('fs');
-const path = require('path');
 const dataToParse = {
     name: 'me',
+    alive: false,
     someData: [
         123,
         'asd',
