@@ -1,0 +1,23 @@
+{
+  "name": "node-msgpack",
+  "version": "1.0.0",
+  "description": "A native addon for nodejs as a wrapper around [msgpack](https://github.com/t348575/msgpack)",
+  "main": "dist/index.js",
+  "repository": "http://github.com/t348575/node-msgpack",
+  "author": "Joseph Subash Kanichai <kjosephsubash@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "gypfile": true,
+  "scripts": {
+    "build": "node-gyp -m -j 8 rebuild",
+    "test": "yarn build && node test.js",
+    "clean": "node-gyp clean"
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.3"
+  },
+  "dependencies": {
+    "node-addon-api": "^3.1.0",
+    "node-gyp": "^8.0.0"
+  }
+}
