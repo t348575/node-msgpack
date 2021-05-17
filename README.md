@@ -1,4 +1,4 @@
-# node-msgpack
+# node-msgpack ![Visits](https://nkvnu62257.execute-api.ap-south-1.amazonaws.com/production?repo=node-msgpack)
 
 A native addon for nodejs as a wrapper around [msgpack](https://github.com/t348575/msgpack)
 
